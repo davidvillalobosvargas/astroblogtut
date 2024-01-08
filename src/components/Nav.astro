@@ -1,0 +1,28 @@
+---
+import { Icon } from "astro-icon/components";
+import navData from "../data/navData"
+---
+<nav aria-label="primary">
+    <div>
+        <a aria-label="go home" href="/">
+            <Icon name="logo" size={60} />
+        </a>
+        <ul>
+            {
+                navData.map(item=>(
+                    <li>
+                        <a data-navlink href={item.path}>{item.name}</a>
+                    </li>
+                ))
+            }
+        </ul>
+    </div>
+</nav>
+<script>
+    const navLinks = document.querySelectorAll("[data-navlink]")
+    navLinks.forEach(item=>{
+        if (item.getAttribute("href")===window.location.pathname){
+            item.setAttribute("aria-current","page")
+        }
+    })
+</script>
