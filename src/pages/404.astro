@@ -1,0 +1,13 @@
+---
+import { Icon } from "astro-icon/components";
+import Link from "../components/Link.astro";
+import MainLayout from "../layouts/MainLayout.astro";
+---
+
+<MainLayout>
+    <section class="text-center" aria-label="404 info">
+        <h1 class="text-3xl font-bold">Welp, this is akward!</h1>
+        <p class="my-1">We seem to have missplaced something...</p>
+        <Link text="Go Home" href="/" style="btn-primary" icon={{name:"mdi:home",side:"right"}}>        
+    </section>
+</MainLayout>

@@ -2,12 +2,12 @@
 import { Icon } from "astro-icon/components";
 import navData from "../data/navData"
 ---
-<nav aria-label="primary">
-    <div>
+<nav class="bg-white" aria-label="primary">
+    <div class="flex justify-between items-center p-4 mx-auto max-w-screen-2xl border-b-2">
         <a aria-label="go home" href="/">
             <Icon name="logo" size={60} />
         </a>
-        <ul>
+        <ul class="flex gap-6">
             {
                 navData.map(item=>(
                     <li>

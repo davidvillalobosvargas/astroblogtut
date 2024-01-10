@@ -1,0 +1,34 @@
+---
+import { Icon } from "astro-icon/components";
+
+interface Props{
+    text:string;
+    href:string;
+    icon?:{
+        name:string;
+        side:"left"|"right"
+    };
+    style:string;
+    classes?:string
+}
+const {
+    text,
+    href,
+    icon,
+    style,
+    classes    
+} = Astro.props as Props
+---
+<a class:list={[style,classes]} href={href}>
+    {
+        icon && icon.side === "left" && (
+          <Icon class={"inline-block"} name={icon.name} size={24} />
+        )
+      }
+    {text}
+    {
+        icon && icon.side === "right" && (
+          <Icon class={"inline-block"} name={icon.name} size={24} />
+        )
+      }
+</a>
