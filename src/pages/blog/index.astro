@@ -1,14 +1,17 @@
 ---
 import MainLayout from "../../layouts/MainLayout.astro"
+import PostCard from "../../components/PostCard.astro"
+const getAllPost = await Astro.glob("./*.md");
 ---
 <MainLayout>
-    estos son mis blogs
-    <ul>
-        <li><a href="./post-1">/post-1</a></li>
-        <li><a href="./post-2">/post-2</a></li>
-        <li><a href="./post-3">/post-3</a></li>
-        <li><a href="./post-4">/post-4</a></li>
-        <li><a href="./post-5">/post-5</a></li>
-        <li><a href="./post-6">/post-6</a></li>
-    </ul>
+    
+    <section class="space-y-10" aria-label="latest blog posts">
+        <h1 class="font-bold text-5xl">New Blog Posts</h1>
+        <ul class="grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+            <!-- compare these props to original github -->
+            {getAllPost.map((post)=>(
+                <li><PostCard {post}/></li>
+            ))}
+        </ul>
+    </section>
 </MainLayout>

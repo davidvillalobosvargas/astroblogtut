@@ -2,8 +2,7 @@
 import MainHead from "./MainHead.astro"
 import Footer from "../components/Footer.astro";
 import Nav from "../components/Nav.astro";
-// style import
-import "../styles/global.css";
+
 const{
     title="My Astro Blog",
     description="My musings about the Astro framework"
@@ -14,7 +13,7 @@ const{
 	<body class="bg-gray-100">
 		<div class="flex flex-col justify-between min-h-screen gap-10">
         <Nav/>
-            <main class="max-w-screen-2xl mx-auto px-5">
+            <main class="max-w-screen-2xl w-full mx-auto px-5">
                 <slot>
                     <p>DEFAULT TEXT</p>
                 </slot>
