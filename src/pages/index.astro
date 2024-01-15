@@ -1,6 +1,36 @@
 ---
+import { Image } from "astro:assets"
+import {formatBlogPosts} from "../js/utils"
 import MainLayout from "../layouts/MainLayout.astro"
+import Link from "../components/Link.astro"
+import PostCard from "../components/PostCard.astro"
+const postCollection = await Astro.glob("./blog/*.md");
+const formattedPostCollection = formatBlogPosts(postCollection,{limit:3})
 ---
 <MainLayout title="index">
-    index 
+    <section class="flex flex-col gap-7 px-5 mx-auto my-7 max-w-[1008px] md:flex-row md:items-center" aria-label="about" >
+		<Image 
+			src={"/images/headshot.jpg"} 
+			alt={"profile pic"}
+			width={300}
+			height={400}
+			class={"rounded-full shadow-[15px_15px_30px_-12px] shadow-black object-none h-[400px] object-top"}
+		/>
+		
+		<div>
+			<h1 class="text-4xl font-bold">My Blog</h1>
+            <p class="my-3">Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium, nemo! Lorem, ipsum dolor sit amet consectetur adipisicing elit. Laudantium, nemo!</p>
+			<Link href="/about" text="About Me" style="primary" icon={{name:"mdi:hand-back-left",side:"right"}}/>			
+		</div>
+	</section>
+
+	<section class="space-y-10 mt-20" aria-label="latest blog posts">
+        <h2 class="font-bold text-5xl">New Blog Posts</h2>
+        <ul class="grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+            <!-- compare these props to original github -->
+            {formattedPostCollection.map((post)=>(
+                <li><PostCard {post}/></li>
+            ))}
+        </ul>
+    </section>
 </MainLayout>

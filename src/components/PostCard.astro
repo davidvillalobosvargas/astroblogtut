@@ -19,7 +19,7 @@ import Link from "./Link.astro";
     <div class="px-5">
         <small>
             <a
-                href={url}
+                href={`/category/${slugify(category)}`}
                 class="px-2 py-1 text-white uppercase bg-black rounded"
                 >{category}
             </a>
@@ -43,7 +43,7 @@ import Link from "./Link.astro";
             <h2 class="text-3xl font-bold">
                 <a href={url}>{title}</a>
             </h2>
-            <small>by <a href="">{author}</a> • {formatDate(date)}</small>
+            <small>by <a href={`/author/${slugify(author)}`}>{author}</a> • {formatDate(date)}</small>
         </div>
         <p>{description}</p>
         <div>
