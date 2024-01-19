@@ -1,0 +1,8 @@
+---
+import Link from "./Link.astro";
+const {urlNext, urlPrev, classes} = Astro.props;
+---
+<nav class:list={["space-x-1",classes]} aria-label="blogs pagination">
+    { urlPrev && <Link href={urlPrev} text="Previous" style="outline" icon={{name:"memory:arrow-left-bold",side:"left"}}/>}
+    { urlNext && <Link href={urlNext} text="Next"  style="outline" icon={{name:"memory:arrow-right-bold",side:"right"}}/>}
+</nav>

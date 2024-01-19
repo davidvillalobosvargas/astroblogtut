@@ -1,0 +1,28 @@
+---
+import { formatBlogPosts, slugify } from "../js/utils";
+const postCollection = await Astro.glob("../pages/blog/*.md");
+const formattedPostCollection = formatBlogPosts(postCollection);
+const categoryList = Object.entries(
+    formattedPostCollection.reduce((acc, { frontmatter: { category } }) => {
+        acc[category] = (acc[category] ?? 0) + 1;
+        return acc;
+    }, {}),
+);
+const { showCount, classes } = Astro.props;
+---
+
+<aside class:list={[classes, "text-center"]} aria-label="blog categories">
+    <h3 class="font-bold text-3xl">Blog Categories</h3>
+    <ul class="flex flex-wrap justify-center gap-x-1 gap-y-2 mt-3">
+        {
+            categoryList.map(([name, counter]) => (
+                <li>
+                    <a
+                        class="bg-blue-700 uppercase text-white px-2 py-1 rounded-md"
+                        href={"/category/" + slugify(name)}
+                    >{name} {showCount && `${counter}`}</a>
+                </li>
+            ))
+        }
+    </ul>
+</aside>

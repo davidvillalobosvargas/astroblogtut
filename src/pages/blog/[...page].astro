@@ -1,0 +1,40 @@
+---
+import type { GetStaticPaths } from "astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import PostCard from "../../components/PostCard.astro";
+import { formatBlogPosts} from "../../js/utils";
+import Pagination from "../../components/Pagination.astro";
+import CategoryCloud from "../../components/CategoryCloud.astro";
+
+export const getStaticPaths = (async ({ paginate }) => {
+    const postCollection = await Astro.glob("../blog/*.md");
+    const formatedPostCollection = formatBlogPosts(postCollection) as [];
+    
+    return paginate(formatedPostCollection, {
+        pageSize: 3,
+    });
+}) satisfies GetStaticPaths;
+const { page } = Astro.props;
+---
+
+<MainLayout>
+    <section class="space-y-10 flex flex-col" aria-label="latest blog posts">
+        <h1 class="font-bold text-5xl">New Blog Posts</h1>
+        <ul class="grid gap-5 grid-cols-1 md:grid-cols-2 xl:grid-cols-3">
+            <!-- compare these props to original github -->
+            {
+                page.data.map((post) => (
+                    <li>
+                        <PostCard {post} />
+                    </li>
+                ))
+            }
+        </ul>
+        <Pagination
+            urlNext={page.url.next}
+            urlPrev={page.url.prev}
+            classes="self-center"
+        />
+        <CategoryCloud showCount={true}/>
+    </section>
+</MainLayout>

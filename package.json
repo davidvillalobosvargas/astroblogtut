@@ -18,6 +18,7 @@
     "typescript": "^5.3.3"
   },
   "devDependencies": {
-    "@iconify-json/mdi": "^1.1.64"
+    "@iconify-json/mdi": "^1.1.64",
+    "@iconify-json/memory": "^1.1.9"
   }
 }
