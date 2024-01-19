@@ -8,12 +8,12 @@ const categoryList = Object.entries(
         return acc;
     }, {}),
 );
-const { showCount, classes } = Astro.props;
+const { showCount, classes, sidebar } = Astro.props;
 ---
 
-<aside class:list={[classes, "text-center"]} aria-label="blog categories">
+<aside class:list={[classes,"text-center",sidebar && "md:text-left"]} aria-label="blog categories">
     <h3 class="font-bold text-3xl">Blog Categories</h3>
-    <ul class="flex flex-wrap justify-center gap-x-1 gap-y-2 mt-3">
+    <ul class:list={["flex flex-wrap justify-center gap-x-1 gap-y-2 mt-3",sidebar && "md:justify-start"]}>
         {
             categoryList.map(([name, counter]) => (
                 <li>

@@ -1,0 +1,22 @@
+---
+import {formatBlogPosts,formatDate, slugify} from "../js/utils"
+const {category, url} = Astro.props;
+const postCollection = await Astro.glob("../pages/blog/*.md")
+const formattedPC =formatBlogPosts(postCollection)
+const relatedPosts = formattedPC.filter(post=>{
+    return category===post.frontmatter.category && url !== post.url
+}).slice(0,3);
+---
+<aside aria-label="related post">
+    <h3 class="font-bold text-3xl">Related Post</h3>
+    <ul class="md:p-5">
+        {relatedPosts.map(({url,frontmatter:{title,date,author}})=>{
+            return (
+                <li>
+                    <h3><a class="font-bold text-2xl" href={url}>{title}</a></h3>
+                    <small class="mt-2"><a href={`/author/${slugify(author)}`}>{author}</a> • {formatDate(date)}</small>
+                </li>
+            )
+        })}
+    </ul>
+</aside>
