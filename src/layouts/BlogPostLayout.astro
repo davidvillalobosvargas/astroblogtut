@@ -8,7 +8,13 @@ const { title, date, author, image:{src:img_src,alt:img_alt}, description, categ
 ---
 <!-- TRY TO MAKE THIS FILE A DYNAMIC ROUTES INSTEAD OF A "LAYOUT" -->
 <!-- SO I CAN FETCH EVRYTHING AS ONE TIME AND PASS ARRAYS AS PROPS -->
-<MainLayout {title} {description}>
+<MainLayout
+  {title}
+  {description}
+  image={frontmatter.image}
+  {frontmatter}
+  robots={frontmatter.robots}
+>
     <article class="space-y-10 grid grid-cols-12">
         <PostHeader {date} {author} {img_src} {img_alt} {category} {title} classes="col-span-12"/>
         <div class="px-5 space-y-5 col-span-9">

@@ -5,11 +5,14 @@ import Nav from "../components/Nav.astro";
 
 const{
     title="My Astro Blog",
-    description="My musings about the Astro framework"
+    description="My musings about the Astro framework",
+    image,
+    frontmatter,
+    robots,
     }=Astro.props
 ---
 <html lang="en">
-    <MainHead {title} {description}/>
+    <MainHead {title} {description}{image} {frontmatter} {robots} />
 	<body class="bg-gray-100">
 		<div class="flex flex-col justify-between min-h-screen gap-10">
         <Nav/>
