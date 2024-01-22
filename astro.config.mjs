@@ -7,6 +7,6 @@ import react from "@astrojs/react";
 
 // https://astro.build/config
 export default defineConfig({
-  site: 'https://stargazers.club',
+  site: 'https://silly-licorice-d7cfee.netlify.app/',
   integrations: [icon(), tailwind(), sitemap(), react()]
 });
