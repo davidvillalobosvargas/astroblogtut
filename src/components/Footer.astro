@@ -1,15 +1,23 @@
 ---
-
+import { Icon } from "astro-icon/components";
 ---
+
 <footer class="bg-white">
     <div class="flex justify-between p-4 mx-auto max-w-screen-2xl border-t-2">
         <small>
             Copyright &copy;<span id="copyright"></span> | All rights reserved
         </small>
-        <small>Subscribe to RSS</small>
+        <small
+            ><a class="flex" href="./rss.xml"
+                >Subscribe to RSS <Icon
+                    name="tabler:rss"
+                    size={20}
+                /></a
+            ></small
+        >
     </div>
 </footer>
 <script>
-    const spanDate = document.querySelector("#copyright") as HTMLSpanElement
-    spanDate.textContent=new Date().getFullYear().toString()
+    const spanDate = document.querySelector("#copyright") as HTMLSpanElement;
+    spanDate.textContent = new Date().getFullYear().toString();
 </script>
