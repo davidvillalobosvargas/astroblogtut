@@ -5,10 +5,11 @@ import PostCard from "../../components/PostCard.astro";
 import { formatBlogPosts} from "../../js/utils";
 import Pagination from "../../components/Pagination.astro";
 import CategoryCloud from "../../components/CategoryCloud.astro";
+import { getCollection } from "astro:content";
 
 export const getStaticPaths = (async ({ paginate }) => {
-    const postCollection = await Astro.glob("../blog/*.md");
-    const formatedPostCollection = formatBlogPosts(postCollection) as [];
+    const postCollection = await getCollection("blog");
+    const formatedPostCollection = formatBlogPosts(postCollection);
     
     return paginate(formatedPostCollection, {
         pageSize: 3,

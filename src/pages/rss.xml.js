@@ -1,8 +1,9 @@
 import rss from '@astrojs/rss';
 import { formatBlogPosts } from "../js/utils"
+import { getCollection } from 'astro:content';
 
-const postImportResult = import.meta.glob('./blog/**/*.md', { eager: true });
-const posts = formatBlogPosts(Object.values(postImportResult));
+const postImportResult = await getCollection("blog")
+const posts = formatBlogPosts(postImportResult);
 
 export async function GET(context) {
   return rss({
@@ -11,12 +12,12 @@ export async function GET(context) {
     description: 'A humble Astronaut’s guide to the stars',
     site: context.site,
     items: posts.map((post) => ({
-      link: post.url,
-      title: post.frontmatter.title,
-      pubDate: post.frontmatter.date,
-      description: post.frontmatter.description,
+      link: `/blog/${post.slug}`,
+      title: post.data.title,
+      pubDate: post.data.date,
+      description: post.data.description,
       customData: `
-        <author>${post.frontmatter.author}</author>
+        <author>${post.data.author}</author>
       `
     }))
   });

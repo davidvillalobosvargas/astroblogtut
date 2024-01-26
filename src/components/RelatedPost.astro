@@ -1,16 +1,17 @@
 ---
+import { getCollection } from "astro:content";
 import {formatBlogPosts,formatDate, slugify} from "../js/utils"
 const {category, url} = Astro.props;
-const postCollection = await Astro.glob("../pages/blog/*.md")
+const postCollection = await getCollection("blog")
 const formattedPC =formatBlogPosts(postCollection)
 const relatedPosts = formattedPC.filter(post=>{
-    return category===post.frontmatter.category && url !== post.url
+    return category===post.data.category && url !== post.slug
 }).slice(0,3);
 ---
 <aside aria-label="related post">
     <h3 class="font-bold text-3xl">Related Post</h3>
     <ul class="md:p-5">
-        {relatedPosts.map(({url,frontmatter:{title,date,author}})=>{
+        {relatedPosts.map(({slug:url,data:{title,author,date}})=>{
             return (
                 <li>
                     <h3><a class="font-bold text-2xl" href={url}>{title}</a></h3>

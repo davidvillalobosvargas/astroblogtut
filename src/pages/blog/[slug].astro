@@ -1,0 +1,54 @@
+---
+import CategoryCloud from "../../components/CategoryCloud.astro";
+import RelatedPost from "../../components/RelatedPost.astro";
+import PostHeader from "../../components/PostHeader.astro";
+import MainLayout from "../../layouts/MainLayout.astro";
+import type { GetStaticPaths } from "astro";
+import { getCollection } from "astro:content";
+export const getStaticPaths = (async () => {
+    const blogCollection = await getCollection("blog")
+    return blogCollection.map(post=>{
+        return{
+            params:{slug:post.slug},
+            props:{post}
+        }
+    });
+}) satisfies GetStaticPaths;
+const {post} = Astro.props
+const {
+    title,
+    date,
+    author,
+    image: { src: img_src, alt: img_alt },
+    description,
+    category,
+} = post.data;
+const { Content } = await post.render()
+---
+<MainLayout
+{title}
+{description}
+image={post.data.image}
+frontmatter={post.data}
+>
+    <article class="space-y-10 grid grid-cols-12">
+        <PostHeader
+            {date}
+            {author}
+            {img_src}
+            {img_alt}
+            {category}
+            {title}
+            classes="col-span-12"
+        />
+        <div class="px-5 space-y-5 col-span-9">
+            <Content/>
+        </div>
+        <div
+            class="flex md:flex-col md:col-span-3 col-span-12 gap-y-7 gap-x-5 text-center md:text-left"
+        >
+            <CategoryCloud sidebar={true} />
+            <RelatedPost category={category} url={post.slug} />
+        </div>
+    </article>
+</MainLayout>

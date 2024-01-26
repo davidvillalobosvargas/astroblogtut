@@ -1,6 +1,10 @@
 ---
+import type { CollectionEntry } from "astro:content";
+interface Props {
+    post: CollectionEntry<"blog">;
+}
 const { post } = Astro.props;
-const { frontmatter, url } = post;
+const { data, slug } = post;
 const {
     title,
     date,
@@ -8,7 +12,7 @@ const {
     image: { src: img_src, alt: img_alt },
     description,
     category,
-} = frontmatter;
+} = data;
 import { Image } from "astro:assets";
 import { formatDate, slugify } from "../js/utils";
 import Link from "./Link.astro";
@@ -26,7 +30,7 @@ import Link from "./Link.astro";
         </small>
     </div>
     <div>
-        <a href={url} tabindex="-1">
+        <a href={`blog/${slug}`} tabindex="-1">
             <Image
                 src={img_src}
                 alt={img_alt}
@@ -41,13 +45,17 @@ import Link from "./Link.astro";
     <div class="px-5 space-y-3">
         <div>
             <h2 class="text-3xl font-bold">
-                <a href={url}>{title}</a>
+                <a href={`blog/${slug}`}>{title}</a>
             </h2>
-            <small>by <a href={`/author/${slugify(author)}`}>{author}</a> • {formatDate(date)}</small>
+            <small
+                >by <a href={`/author/${slugify(author)}`}>{author}</a> • {
+                    formatDate(date)
+                }</small
+            >
         </div>
         <p>{description}</p>
         <div>
-            <Link style="primary" text="Read Post" href={url} />
+            <Link style="primary" text="Read Post" href={`blog/${slug}`} />
         </div>
     </div>
 </article>

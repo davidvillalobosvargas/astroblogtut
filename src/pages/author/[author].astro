@@ -2,18 +2,19 @@
 import { formatBlogPosts, slugify } from "../../js/utils";
 import MainLayout from "../../layouts/MainLayout.astro";
 import PostCard from "../../components/PostCard.astro";
+import { getCollection } from "astro:content";
 export async function getStaticPaths() {
-    const postCollection = await Astro.glob("../blog/*.md");
+    const postCollection = await getCollection("blog");
     const formatedPostCollection = formatBlogPosts(postCollection);
     const authorNames = [
         ...new Set(
             formatedPostCollection
-                .map((post) => post.frontmatter.author)
+                .map((post) => post.data.author)
         ),
     ];
     return authorNames.map((author) => {
         const authorPosts = formatedPostCollection.filter(
-            (post) => post.frontmatter.author === author,
+            (post) => post.data.author === author,
         );
         return {
             params: { author: slugify(author) },
